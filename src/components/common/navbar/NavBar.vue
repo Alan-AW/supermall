@@ -20,11 +20,9 @@
   }
   .left, .right {
     width: 60px;
-    background-color: aqua;
   }
   .center {
     flex: 1;
     text-align: center;
-    background-color: blueviolet;
   }
 </style>
