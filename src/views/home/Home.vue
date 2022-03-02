@@ -4,8 +4,110 @@
     <home-swiper :banners="banners" />
     <home-recommend-view :recommends="recommends" />
     <feature-view />
-    <tab-control :titles="titles" class="tab-control" />
-    <goods-list :goods="goods['pop'].list" />
+    <tab-control :titles="titles" class="tab-control" @tabClick="tabClick" />
+    <goods-list :goods="showGoods" />
+    <ul class="content">
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+    </ul>
   </div>
 </template>
 
@@ -22,6 +124,14 @@ import { getHomeMultidata, getHomeGoods } from "network/home";
 
 export default {
   name: "Home",
+  components: {
+    NavBar,
+    HomeSwiper,
+    HomeRecommendView,
+    FeatureView,
+    TabControl,
+    GoodsList,
+  },
   data() {
     return {
       banners: [],
@@ -32,15 +142,14 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      currentType: "pop",
     };
   },
-  components: {
-    NavBar,
-    HomeSwiper,
-    HomeRecommendView,
-    FeatureView,
-    TabControl,
-    GoodsList,
+
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
+    },
   },
 
   created() {
@@ -53,6 +162,22 @@ export default {
   },
 
   methods: {
+    // 事件监听相关
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+      }
+    },
+
+    // 网络请求相关
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
         this.banners = res.data.banner.list;

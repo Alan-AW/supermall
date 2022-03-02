@@ -1,18 +1,131 @@
 <template>
-  <div>
-    <h2>分类页面</h2>
-    <h3>分类内容</h3>
+  <div class="wrapper" ref="aaaa">
+    <ul class="content">
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+      <li>分类列表</li>
+    </ul>
   </div>
 </template>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
+import BScroll from "better-scroll";
 
 export default {
-  name: 'Category',
-}
+  name: "Category",
+  data() {
+    return {
+      scroll: null,
+    };
+  },
+  mounted() {
+    this.scroll = new BScroll(this.$refs.aaaa, {});
+  },
+};
 </script>
 
 <style scoped>
-
+.content {
+  height: 150px;
+  background-color: bisque;
+  overflow: hidden;
+  /* overflow-y: scroll; */
+}
 </style>
