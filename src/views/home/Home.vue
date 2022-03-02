@@ -16,10 +16,9 @@ import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/TabControl";
-import GoodsList from "components/content/goods/Goods";
+import GoodsList from "components/content/goods/GoodsList";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import GoodsList from "@/components/content/goods/GoodsList.vue";
 
 export default {
   name: "Home",
