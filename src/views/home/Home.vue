@@ -19,9 +19,9 @@ import FeatureView from "./childComps/FeatureView";
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
+import Scroll from "components/common/scroll/Scroll";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import Scroll from "components/common/scroll/Scroll";
 
 export default {
   name: "Home",
