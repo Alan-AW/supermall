@@ -6,13 +6,15 @@
 </template>
 
 <script>
-// import { defineComponent } from '@vue/composition-api'
+import Scroll from "components/common/scroll/Scroll";
 
 export default {
-  name: 'Profile',
-}
+  name: "Profile",
+  components: {
+    Scroll,
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

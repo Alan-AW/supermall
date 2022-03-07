@@ -1,13 +1,21 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">京东</div></nav-bar>
-    <scroll class="content">
+    <scroll
+      class="content"
+      ref="scroll"
+      :prob-type="3"
+      @scroll="contentScroll"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
+    >
       <home-swiper :banners="banners" />
       <home-recommend-view :recommends="recommends" />
       <feature-view />
       <tab-control :titles="titles" class="tab-control" @tabClick="tabClick" />
       <goods-list :goods="showGoods" />
     </scroll>
+    <back-top @click.native="backTop" v-show="ShowBackTop" />
   </div>
 </template>
 
@@ -20,6 +28,7 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll";
+import BackTop from "components/content/backTop/BackTop.vue";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
@@ -33,6 +42,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
+    BackTop,
   },
   data() {
     return {
@@ -45,6 +55,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
+      ShowBackTop: false,
     };
   },
 
@@ -61,6 +72,10 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
+    // 监听item中的加载事件
+    this.$bus.$on("itemImageLoad", () => {
+      this.$refs.scroll.refresh(); // 加载出一张图片就进行刷新重新计算高度
+    });
   },
 
   methods: {
@@ -77,6 +92,21 @@ export default {
           this.currentType = "sell";
           break;
       }
+    },
+
+    // 是否显示top图标
+    contentScroll(position) {
+      this.ShowBackTop = -position.y > 1000;
+    },
+
+    // 返回顶部
+    backTop() {
+      this.$refs.scroll.scrollTo(0, 0);
+    },
+
+    // 上拉加载更多
+    loadMore() {
+      this.getHomeGoods(this.currentType);
     },
 
     // 网络请求相关
@@ -97,6 +127,7 @@ export default {
       getHomeGoods(type, page).then((res) => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp();
       });
     },
   },
@@ -119,7 +150,7 @@ export default {
   z-index: 999;
 }
 
-/* 自动吸顶，大部分移动端浏览器支持，IE不支持 */
+/* 自动吸顶，大部分移动端浏览器支持，IE不支持,使用了better-scroll之后该属性无法生效*/
 .tab-control {
   position: sticky;
   top: 44px;
