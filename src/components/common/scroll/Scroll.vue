@@ -37,20 +37,24 @@ export default {
     this.scroll.on("scroll", (position) => {
       this.$emit("scroll", position);
     });
+
     // 监听上拉事件
-    this.scroll.on("pullingUp", () => {
-      this.$emit("pullingUp");
-    });
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+      });
+    }
   },
   methods: {
+    // 解决启动的时候无法找到refresh方法的BUG严谨的写法
     scrollTo(x, y, time = 1000) {
-      this.scroll.scrollTo(x, y, time);
+      this.scroll && this.scrollTo && this.scroll.scrollTo(x, y, time);
     },
     finishPullUp() {
       this.scroll.finishPullUp();
     },
     refresh() {
-      this.scroll.refresh();
+      this.scroll && this.scrollTo && this.scroll.refresh();
     },
   },
 };

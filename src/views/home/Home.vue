@@ -1,6 +1,13 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">京东</div></nav-bar>
+    <tab-control
+      :titles="titles"
+      class="tab-control1"
+      @tabClick="tabClick"
+      v-show="isTabFixed"
+      ref="tabcontrol1"
+    />
     <scroll
       class="content"
       ref="scroll"
@@ -9,10 +16,10 @@
       :pull-up-load="true"
       @pullingUp="loadMore"
     >
-      <home-swiper :banners="banners" />
+      <home-swiper :banners="banners" @swipperimgLoad="swipperimgLoad" />
       <home-recommend-view :recommends="recommends" />
       <feature-view />
-      <tab-control :titles="titles" class="tab-control" @tabClick="tabClick" />
+      <tab-control :titles="titles" @tabClick="tabClick" ref="tabcontrol2" />
       <goods-list :goods="showGoods" />
     </scroll>
     <back-top @click.native="backTop" v-show="ShowBackTop" />
@@ -29,6 +36,7 @@ import TabControl from "components/content/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/content/backTop/BackTop.vue";
+import { debounce } from "common/utils";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
@@ -56,6 +64,8 @@ export default {
       },
       currentType: "pop",
       ShowBackTop: false,
+      tabOffsetTop: 0,
+      isTabFixed: false,
     };
   },
 
@@ -72,9 +82,14 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
-    // 监听item中的加载事件
+  },
+
+  mounted() {
+    // 监听item图片加载事件
+    const refresh = debounce(this.$refs.scroll.refresh, 300);
     this.$bus.$on("itemImageLoad", () => {
-      this.$refs.scroll.refresh(); // 加载出一张图片就进行刷新重新计算高度
+      // 防抖debounce
+      refresh();
     });
   },
 
@@ -92,11 +107,16 @@ export default {
           this.currentType = "sell";
           break;
       }
+      this.$refs.tabcontrol1.currentIndex = index;
+      this.$refs.tabcontrol2.currentIndex = index;
     },
 
     // 是否显示top图标
     contentScroll(position) {
+      // 判断backTop是否显示
       this.ShowBackTop = -position.y > 1000;
+      // 决定tabControl是否吸顶
+      this.isTabFixed = -position.y > this.tabOffsetTop;
     },
 
     // 返回顶部
@@ -130,6 +150,9 @@ export default {
         this.$refs.scroll.finishPullUp();
       });
     },
+    swipperimgLoad() {
+      this.tabOffsetTop = this.$refs.tabcontrol2.$el.offsetTop;
+    },
   },
 };
 </script>
@@ -143,24 +166,15 @@ export default {
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 999;
-}
-
-/* 自动吸顶，大部分移动端浏览器支持，IE不支持,使用了better-scroll之后该属性无法生效*/
-.tab-control {
-  position: sticky;
-  top: 44px;
-  z-index: 999;
-  background-color: #fff;
 }
 
 .content {
   height: calc(100% - 93px);
   overflow: hidden;
-  margin-top: 44px;
+}
+
+.tab-control {
+  position: relative;
+  z-index: 99999;
 }
 </style>
