@@ -51,6 +51,7 @@ export default {
     GoodsList,
     Scroll,
     BackTop,
+    saveY: 0,
   },
   data() {
     return {
@@ -73,6 +74,17 @@ export default {
     showGoods() {
       return this.goods[this.currentType].list;
     },
+  },
+
+  activated() {
+    // 活跃状态
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    this.$refs.scroll.refresh();
+  },
+
+  deactivated() {
+    // 非活跃状态
+    this.saveY = this.$refs.scroll.getScrollY();
   },
 
   created() {
