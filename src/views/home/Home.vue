@@ -123,7 +123,6 @@ export default {
       this.$refs.tabcontrol2.currentIndex = index;
     },
 
-    // 是否显示top图标
     contentScroll(position) {
       // 判断backTop是否显示
       this.ShowBackTop = -position.y > 1000;
