@@ -11,7 +11,7 @@ import DetailNavBar from "./childComps/DetailNavBar";
 import DetailSwiper from "./childComps/DetailSwiper";
 import DetailBaseInfo from "./childComps/DetailBaseInfo";
 
-import { getDetaildata, Goods } from "network/detail";
+import { getDetaildata, Goods, Shop } from "network/detail";
 
 export default {
   name: "Detail",
@@ -25,6 +25,7 @@ export default {
       iid: null,
       topImgs: null,
       goods: {},
+      shop: {},
     };
   },
   created() {
@@ -41,6 +42,8 @@ export default {
         data.columns,
         data.shopInfo.services
       );
+      // 创建商铺信息的对象
+      this.shop = new Shop(data.shopInfo);
     });
   },
 };
