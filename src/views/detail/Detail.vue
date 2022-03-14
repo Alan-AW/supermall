@@ -1,13 +1,14 @@
 <template>
   <div class="detail">
     <detail-nav-bar />
-    <scroll class="content" ref="scroll">
-      <detail-swiper :top-imgs="topImgs"></detail-swiper>
-      <detail-base-info :goods="goods"></detail-base-info>
-      <detail-shop-info :shop="shopInfo"></detail-shop-info>
-      <detail-img-info :detail-info="detailInfo"></detail-img-info>
-      <detail-param-info :param-info="paramInfo" />
-    </scroll>
+    <!-- 不使用这个组件了，手机端google浏览器非常卡顿，没有原生的好 -->
+    <!-- <scroll class="content" ref="scroll"> -->
+    <detail-swiper :top-imgs="topImgs"></detail-swiper>
+    <detail-base-info :goods="goods"></detail-base-info>
+    <detail-shop-info :shop="shopInfo"></detail-shop-info>
+    <detail-img-info :detail-info="detailInfo"></detail-img-info>
+    <detail-param-info :param-info="paramInfo" />
+    <!-- </scroll> -->
   </div>
 </template>
 
@@ -15,7 +16,7 @@
 import DetailNavBar from "./childComps/DetailNavBar";
 import DetailSwiper from "./childComps/DetailSwiper";
 import DetailBaseInfo from "./childComps/DetailBaseInfo";
-import Scroll from "components/common/scroll/Scroll";
+// import Scroll from "components/common/scroll/Scroll";
 import DetailShopInfo from "./childComps/DetailShopInfo";
 import DetailImgInfo from "./childComps/detailImgInfo.vue";
 import DetailParamInfo from "./childComps/DetailParamInfo.vue";
