@@ -41,10 +41,11 @@ export default {
   methods: {
     imgLoad() {
       // 这里判断所有图片加载完，执行回调
-      if (++this.counter === this.imgLength) {
-        // 如果没有这层判断会导致图片回调太多次数
-        this.$bus.$emit("imgLoad");
-      }
+      // if (++this.counter === this.imgLength) {
+      //   // 如果没有这层判断会导致图片回调太多次数
+      //   this.$bus.$emit("imgLoad");
+      // }
+      this.$bus.$emit("imgLoad");
     },
   },
   watch: {
