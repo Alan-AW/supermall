@@ -1,23 +1,22 @@
 <template>
   <div class="detail">
-    <detail-nav-bar />
-    <!-- 不使用这个组件了，手机端google浏览器非常卡顿，没有原生的好 -->
-    <!-- <scroll class="content" ref="scroll"> -->
-    <detail-swiper :top-imgs="topImgs"></detail-swiper>
-    <detail-base-info :goods="goods"></detail-base-info>
-    <detail-shop-info :shop="shopInfo"></detail-shop-info>
-    <detail-img-info :detail-info="detailInfo"></detail-img-info>
-    <detail-param-info :param-info="paramInfo" />
-    <!-- </scroll> -->
+    <DetailNavBar />
+    <Scroll class="content" ref="scroll">
+      <DetailSwiper :top-imgs="topImgs"></DetailSwiper>
+      <DetailBaseInfo :goods="goods"></DetailBaseInfo>
+      <DetailShopInfo :shop="shopInfo"></DetailShopInfo>
+      <DetailImgInfo :detail-info="detailInfo"></DetailImgInfo>
+      <DetailParamInfo :param-info="itemParams" />
+    </Scroll>
   </div>
 </template>
 
 <script>
-import DetailNavBar from "./childComps/DetailNavBar";
-import DetailSwiper from "./childComps/DetailSwiper";
-import DetailBaseInfo from "./childComps/DetailBaseInfo";
-// import Scroll from "components/common/scroll/Scroll";
-import DetailShopInfo from "./childComps/DetailShopInfo";
+import DetailNavBar from "./childComps/DetailNavBar.vue";
+import DetailSwiper from "./childComps/DetailSwiper.vue";
+import DetailBaseInfo from "./childComps/DetailBaseInfo.vue";
+import Scroll from "components/common/scroll/Scroll";
+import DetailShopInfo from "./childComps/DetailShopInfo.vue";
 import DetailImgInfo from "./childComps/detailImgInfo.vue";
 import DetailParamInfo from "./childComps/DetailParamInfo.vue";
 
@@ -41,7 +40,7 @@ export default {
       goods: {},
       shopInfo: {},
       detailInfo: {},
-      paramInfo: {},
+      itemParams: {},
     };
   },
   created() {
@@ -49,21 +48,22 @@ export default {
     this.iid = this.$route.params.iid;
     // 请求数据
     getDetaildata(this.iid).then((res) => {
+      // 1.保存所有信息到data
       const data = res.result;
-      // 获取顶部的轮播图片
+      // 2.获取顶部的轮播图片
       this.topImgs = data.itemInfo.topImages;
-      // 获取商品信息
+      // 3.获取商品信息
       this.goods = new Goods(
         data.itemInfo,
         data.columns,
         data.shopInfo.services
       );
-      // 创建商铺信息的对象
+      // 4.创建商铺信息的对象
       this.shopInfo = new Shop(data.shopInfo);
-      // 封装详情信息
+      // 5.封装详情信息
       this.detailInfo = data.detailInfo;
-      // 获取商品参数信息
-      this.pramaInfo = data.itemParams;
+      // 6.获取商品参数信息
+      this.itemParams = data.itemParams;
     });
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <nav-bar class="nav-bar">
+  <NavBar class="nav-bar">
     <div slot="left" class="back" @click="backClick">
       <img src="@/assets/img/common/back.svg" />
     </div>
@@ -13,7 +13,7 @@
         {{ title }}
       </div>
     </div>
-  </nav-bar>
+  </NavBar>
 </template>
 
 <script>
@@ -43,7 +43,7 @@ export default {
 <style scoped>
 .nav-bar {
   position: relative;
-  z-index: 9;
+  z-index: 99;
   background-color: #fff;
 }
 .title {

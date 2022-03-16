@@ -1,9 +1,11 @@
 <template>
-  <swiper class="swoper">
-    <swiper-item v-for="item in topImgs">
-      <img :src="item" alt="" />
-    </swiper-item>
-  </swiper>
+  <div>
+    <Swiper class="swoper">
+      <SwiperItem v-for="item in topImgs">
+        <img :src="item" alt="" />
+      </SwiperItem>
+    </Swiper>
+  </div>
 </template>
 
 <script>

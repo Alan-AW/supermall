@@ -8,21 +8,20 @@
       v-show="isTabFixed"
       ref="tabcontrol1"
     />
-    <!-- 放弃使用滚动组件 -->
-    <!-- <scroll
+    <scroll
       class="content"
       ref="scroll"
       :prob-type="3"
       @scroll="contentScroll"
       :pull-up-load="true"
       @pullingUp="loadMore"
-    > -->
+    >
     <home-swiper :banners="banners" @swipperimgLoad="swipperimgLoad" />
     <home-recommend-view :recommends="recommends" />
     <feature-view />
     <tab-control :titles="titles" @tabClick="tabClick" ref="tabcontrol2" />
     <goods-list :goods="showGoods" />
-    <!-- </scroll> -->
+    </scroll>
     <back-top @click.native="backTop" v-show="ShowBackTop" />
   </div>
 </template>
@@ -35,7 +34,7 @@ import FeatureView from "./childComps/FeatureView";
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
-// import Scroll from "components/common/scroll/Scroll";
+import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/content/backTop/BackTop.vue";
 import { debounce } from "common/utils";
 

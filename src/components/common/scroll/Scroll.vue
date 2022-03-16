@@ -7,9 +7,6 @@
 </template>
 
 <script>
-/*
-不使用该组件了，但是保留其代码。没有原生滑动丝滑
-*/
 import BScroll from "better-scroll";
 
 export default {
